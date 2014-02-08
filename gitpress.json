@@ -1,5 +1,5 @@
 {
-    "docs"      : {"CSS": "docs/css", "Javascript": "docs/js", "Life": "docs/life"},
+    "docs"      : {"About": "README.md", "CSS": "docs/css", "Javascript": "docs/js", "Life": "docs/life"},
     "template"    : "pithiness",
     "perpage"   : 10,
     "types"     : {
