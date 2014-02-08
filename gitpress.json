@@ -1,0 +1,21 @@
+{
+    "docs"      : {"CSS": "docs/css", "Javascript": "docs/js", "Life": "docs/life"},
+    "template"    : "pithiness",
+    "perpage"   : 10,
+    "types"     : {
+        "\\.(md||markdown)$"   : "markdown", 
+        "\\.(js||css||json)$"  : "code",
+        "\\.html?$"            : "html",
+        ".*"                   : "text"        
+    },
+    "title"  : "zuojing's blog",
+    "description" : "test",
+    "comment"  : {"type": "duoshuo", "short_name":"windy1114"},
+    "friends"  : [
+        {
+                "name"  : "奇舞团",
+                "title"  : "奇舞团官方博客",
+                "url"  : "http://www.75team.com"
+        }
+    ] 
+}
