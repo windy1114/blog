@@ -1,6 +1,6 @@
 {
     "docs"      : {"CSS": "docs/css", "Javascript": "docs/js", "Life": "docs/life"},
-    "template"    : "pithiness",
+    "template"    : "greyshade",
     "perpage"   : 10,
     "types"     : {
         "\\.(md||markdown)$"   : "markdown", 
