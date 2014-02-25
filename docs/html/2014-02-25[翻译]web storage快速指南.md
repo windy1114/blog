@@ -3,7 +3,7 @@
 几乎所有的桌面应用或移动应用都需要存储用户的数据。但是对于网站呢？在过去，我们用cookies来存储，但是它有严重的局限性。HTML5给了我们更好的工具来解决这个问题。一个是IndexedDB，一个是Web Storager。
 
 ## 什么是Web Storage ##
-通俗的说 Web Storage 就是通过一系列的api来提供一种将客户端数据存储到浏览器的简单方法。它比cookie更加的安全、快速。跟cookie一样，数据存储在用户的浏览器不会在传输到网络上。它可以存储的数据比cookie大得多，而不会影响网站的性能。
+通俗的说 Web Storage(也被称为[https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage "dom storage")) 就是通过一系列的api来提供一种将客户端数据存储到浏览器的简单方法。它比cookie更加的安全、快速。跟cookie一样，数据存储在用户的浏览器不会在传输到网络上。它可以存储的数据比cookie大得多，而不会影响网站的性能。
 
 Web Storage提供两个优秀的对象来存储数据：<br>
 - **localStorage:** 你存储的数据不需要设置过期日期，这意味着你存储的数据永不过期。
