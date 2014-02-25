@@ -1,4 +1,4 @@
-# [翻译]Web Storager快还指南 
+# [翻译]Web Storager快速指南 
 
 几乎所有的桌面应用或移动应用都需要存储用户的数据。但是对于网站呢？在过去，我们用cookies来存储，但是它有严重的局限性。HTML5给了我们更好的工具来解决这个问题。一个是IndexedDB，一个是Web Storager。
 
