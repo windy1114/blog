@@ -1,1 +1,2 @@
-http://tutorialzine.com/2013/07/quick-tip-parse-urls/
+
+http://www.sitepoint.com/use-html5-full-screen-api/
