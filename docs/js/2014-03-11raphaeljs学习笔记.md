@@ -41,33 +41,19 @@ Raphael目前支持的浏览器有：Firefox 3.0+, Safari 3.0+, Chrome 5.0+, Ope
 **用法：**
 
 html代码
->``` html
-> <div id="holder"></div>
->```
+``` html
+ <div id="holder"></div>
+```
 
 javascript 代码
 ```
-    // 每个示例都创建一个画布
+   // 每个示例都创建一个画布
    // 画布的尺寸是：宽 320px 高 200px.
    // 画布开始于  左上角，并且在 id=“notepad” 的元素里面创建
    // (注意：当节点有属性： dir="rtl"，会从右上角开始创建)
    var paper = Raphael(document.getElementById("notepad"), 320, 200);
    // 同上
    var paper = Raphael("notepad", 320, 200);
-   // 图像
-   var set = Raphael(["notepad", 320, 200, {
-     type: "rect",
-     x: 10,
-     y: 10,
-     width: 25,
-     height: 25,
-     stroke: "#f00"
-   }, {
-     type: "text",
-     x: 30,
-     y: 40,
-     text: "Dump"
- }]);
 ```
 
 **第二种形式的参数**
@@ -196,7 +182,7 @@ path([pathString])
 > "M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z"
 
     var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
-画了一个俄罗斯方块
+画了一个俄罗斯方块<br>
 ![](http://p15.qhimg.com/t01d246f787e6d30fd2.png)
 
 "z" 表示关闭路径。它将画一条线连结由M指定的起始位置。
@@ -209,6 +195,8 @@ attr()方法. 将对象的属性键值对作为参数。
 **一个单词可以不用引号括号，两个单词如stroke-width需要用引号括起来**
 
 **6.动画**
+animate()方法
+
 
 **7.访问dom**
 通过节点属性，可以很方便的绑定事件到形状上。
