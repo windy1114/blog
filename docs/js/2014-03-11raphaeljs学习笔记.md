@@ -1,4 +1,4 @@
-# Raphael 学习笔记 #
+# Raphael 学习笔记
 
 ## 简介 ##
 Raphael是一个轻量级的javascript 矢量图形库。可以简单的实现图表，图片裁剪，旋转等操作。
@@ -9,7 +9,7 @@ Raphael目前支持的浏览器有：Firefox 3.0+, Safari 3.0+, Chrome 5.0+, Ope
 
 
 ## 核心Raphael() ##
-创建一个canvas对象。第一步必须要创建画布，这个实例将来调用的所有绘图方法都会被绑定到这个canvas对象上。
+创建一个canvas对象。第一步必须要创建画布，所有绘图方法都会被绑定到这个canvas对象上。
 
 ### 参数 ###
 它的参数有几种形式：
@@ -148,3 +148,86 @@ javascript 代码
      text: "Dump"
  }]);
 > ```
+
+
+#### 例子 ####
+**创建画布**
+//假设有一个id为canva_container的div
+    var paper = Raphael('canva_container', 500, 500);
+
+**创建形状**
+
+**1.画圆**
+//在画布paper上画一个圆，x,y座标都是相对于paper对象而言
+    var circle = paper.circle(100, 100, 80);
+
+//创建任意多个圆,而不需要给它们指定变量
+
+```
+for(var i = 0; i < 5; i+=1) {
+    var multiplier = i*5;
+    paper.circle(250 + (2*multiplier), 100 + multiplier, 50 - multiplier);
+}
+```
+
+**2.画矩形**
+rect(x, y, width, height);
+
+    var rectangle = paper.rect(200,200,250,100);
+
+**3.画椭圆**
+ellipse(x, y, x-radius, y-radius)
+
+    paper.ellipse(200, 400, 100, 50);
+
+**4.创建路径**
+path([pathString])
+
+路径字符串格式：
+将鼠标移动到x = 250, y = 250，如下表示
+> "M 250 250"
+
+"M"表示我们想要把鼠标移动到画布的x,y坐标位置，而不画出来。
+现在鼠标已经到了我们想要的位置，相对于这个点画一条用小写的L即"l"表示：
+> "M 250 250 l 0 -50"
+
+沿着y轴的正方向画一条50px的直线。
+
+> "M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z"
+
+    var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
+画了一个俄罗斯方块
+![](http://p15.qhimg.com/t01d246f787e6d30fd2.png)
+
+"z" 表示关闭路径。它将画一条线连结由M指定的起始位置。
+
+**5.属性样式**
+attr()方法. 将对象的属性键值对作为参数。
+    
+	tetronimo.attr({fill: '#9cf', stroke: '#ddd', 'stroke-width': 5});
+
+**一个单词可以不用引号括号，两个单词如stroke-width需要用引号括起来**
+
+**6.动画**
+
+**7.访问dom**
+通过节点属性，可以很方便的绑定事件到形状上。
+例子：
+```javascript
+   //创建一个画布
+   var paper = new Raphael(document.getElementById('canvas_container'), 500, 500);
+   //在画布上画一个圆 
+   var circ = paper.circle(250, 250, 40);
+   circ.attr({fill: '#000', stroke: 'none'});
+   //在画布上创建文字，透明度为0文字最终将不显示，toBack()方法将文字置于所以形状的下面，toFront()置于最前面
+   var text = paper.text(250, 250, 'Bye Bye Circle!')
+   text.attr({opacity: 0, 'font-size': 12}).toBack();
+   //给圆的node绑定click方法
+   circ.node.onclick = function() {
+      this.style.cursor = 'pointer'
+      text.animate({opacity: 1}, 2000);
+      circ.animate({opacity: 0}, 2000, function() {
+         this.remove();
+     });
+   }
+```
