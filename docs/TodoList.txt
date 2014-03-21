@@ -3,3 +3,6 @@ http://raphaeljs.com/
 http://bonsaiden.github.io/JavaScript-Garden/zh/
 
 http://coding.smashingmagazine.com/2013/11/12/an-introduction-to-dom-events/
+
+javascript event
+http://javascript.info/tutorial/mouse-events
