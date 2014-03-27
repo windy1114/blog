@@ -96,17 +96,106 @@
 	    array[i] = "<li>"+i+"</li>"; 
 	}
 	$myList.html(array.join(''));
-  ```
-- 不要操作空的元素
-  ```js
-    // BAD: This runs three functions before it realizes there's nothing in the selection
-	$("#nosuchthing").slideUp();
+ ```
+- 不要操作空的元素 [更多阅读](http://learn.jquery.com/performance/dont-act-on-absent-elements/)
+	```js
+		// BAD: This runs three functions before it realizes there's nothing in the selection
+		$("#nosuchthing").slideUp();
+		 
+		// GOOD
+		var $mySelection = $("#nosuchthing");
+		if ($mySelection.length) {
+		    $mySelection.slideUp();
+		}
+	```
+
+## 事件 ##
+- 一个页面只用一个document ready 处理函数，这样更容易debug
+- 不要对事件绑定匿名函数。匿名函数难以debug,维护，测试，重用。[更多阅读](http://learn.jquery.com/code-organization/beware-anonymous-functions/)
+	```js
+		// BAD
+		$( document ).ready(function() {
+		 
+		    $( "#magic" ).click(function( event ) {
+		        $( "#yayeffects" ).slideUp(function() {
+		            // ...
+		        });
+		    });
+		 
+		    $( "#happiness" ).load( url + " #unicorns", function() {
+		        // ...
+		    });
+		 
+		});
+		 
+		// BETTER
+		var PI = {
+		 
+		    onReady: function() {
+		        $( "#magic" ).click( PI.candyMtn );
+		        $( "#happiness" ).load( PI.url + " #unicorns", PI.unicornCb );
+		    },
+		 
+		    candyMtn: function( event ) {
+		        $( "#yayeffects" ).slideUp( PI.slideCb );
+		    },
+		 
+		    slideCb: function() { ... },
+		 
+		    unicornCb: function() { ... }
+		 
+		};
+		 
+		$( document ).ready( PI.onReady );
+	```
+
+- 尽可能的给事件添加命名空间，这样更能容易解绑事件。
+    $("#myLink").on("click.mySpecialClick", myEventHandler); // GOOD
+	// Later on, it's easier to unbind just your click event
+	$("#myLink").unbind("click.mySpecialClick");
+
+## Ajax ##
+- 使用`$.ajax()`方法，避免使用`$.get()`、`$.getJson()`
+- 不要把参数带在url上，通过data对象来设置它们
+	// Less readable...
+	$.ajax({
+	    url: "something.php?param1=test1&param2=test2",
+	    ....
+	});
 	 
-	// GOOD
-	var $mySelection = $("#nosuchthing");
-	if ($mySelection.length) {
-	    $mySelection.slideUp();
-	}
-  ```
+	// More readable...
+	$.ajax({
+	    url: "something.php",
+	    data: { param1: test1, param2: test2 }
+	});
+- 对于ajax加载的内容节点对它们绑定事件，使用代理。[更多阅读](http://api.jquery.com/on/#direct-and-delegated-events)
+- 使用Promise接口 [更多阅读](http://www.htmlgoodies.com/beyond/javascript/making-promises-with-jquery-deferred.html)
+    $.ajax({ ... }).then(successHandler, failureHandler);
+ 
+	// OR
+	var jqxhr = $.ajax({ ... });
+	jqxhr.done(successHandler);
+	jqxhr.fail(failureHandler);	
+
+
+## 链式写法 ##
+- 使用链式写法去替代用变量缓存和多次调用变量。
+	$("#myDiv").addClass("error").show(); 
+
+## 其他 ##
+- 用对象作为参数
+    $myLink.attr("href", "#").attr("title", "my link").attr("rel", "external"); // BAD, 3 calls to attr()
+	// GOOD, only 1 call to attr()
+	$myLink.attr({
+	    href: "#",
+	    title: "my link",
+	    rel: "external"
+	});
+
+- 不要使用不提倡的方法。经常关注每个版本的不提倡方法[http://api.jquery.com/category/deprecated/](http://api.jquery.com/category/deprecated/)
+	$("#parent-container").on("click", "a", delegatedClickHandlerForAjax);
+
+
+
 
 [原文地址](http://lab.abhinayrathore.com/jquery-standards/)
