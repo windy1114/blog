@@ -16,3 +16,84 @@ http://www.htmlgoodies.com/beyond/javascript/making-promises-with-jquery-deferre
 
 45 Useful JavaScript Tips, Tricks and Best Practices
 http://flippinawesome.org/2013/12/23/45-useful-javascript-tips-tricks-and-best-practices/?utm_source=javascriptweekly&utm_medium=email
+
+
+viewport
+http://dev.opera.com/articles/view/an-introduction-to-meta-viewport-and-viewport/
+
+Cross-Browser Inline-Block
+http://blog.mozilla.org/webdev/2009/02/20/cross-browser-inline-block/
+
+Dive into Flexbox
+http://weblog.bocoup.com/dive-into-flexbox/
+
+javascript-puzzlers
+http://javascript-puzzlers.herokuapp.com/
+
+
+立即调用的函数表达式
+http://www.cnblogs.com/TomXu/archive/2011/12/31/2289423.html
+http://benalman.com/news/2010/11/immediately-invoked-function-expression/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+如何高效的操作 Dom（添加，删除以及更新），还有如何通过使用 document fragments 这样的工具来最小化浏览器的 re-flows。
+夸浏览器的 DOM 元素属性提取（比如，style，position等等），jQuery 和 Dojo 都可以很好的完成这些工作，尽管如此，理解从 CSS 和 style 标签中提取属性的差异，以及如何计算 position 和 size 还是很重要的。
+夸浏览器的事件处理，绑定，反绑定，冒泡，以及如何取得期望的回调上下文。在一次，现成的框架也可以很好的处理这些事情，但是你应该对 IE 浏览器和 W3C 标准浏览器之间的不同有所了解。
+正则表达式选取 DOM 节点
+浏览器功能检测以及智能降级
+
+javascript 的基础知识
+知道基本的编程语法，比如循环，判断，try/catch 等等
+理解包括多种函数定义以及赋值的方式，包括匿名函数
+理解基本的命名空间，全局（window）空间以及对象空间（不包括闭包）
+理解上下文的角色以及 this 变量的使用
+理解各种对象以及函数的初始化和声明方式
+理解 javascript 比较操作符，如<, >, ==, ===，以及对象和字符串比较的原理和对象映射
+理解对象属性和函数的数组索引，以及这和真实的数组之间的区别。
+
+javascript 中级知识
+理解定时器，以及它的工作原理，包括何时以及如何使用定时器来异步执行方法调用
+关于回调的深度支持，以及如何通过 call 和 apply 方法来控制上下文和函数参数传递
+理解 JSON 标记以及 eval 函数
+理解闭包以及他们如何影响你的代码效率
+AJAX 以及对象序列化
+
+javascript 高级知识点
+
+理解方法的 arguments 变量，包括如何使用它来通过 arguments.length 重载函数，以及通过 arguments.callee 来进行递归调用，需要注意使用这个特性有一定的危险性，因为 ECMAScript 5 的 Strict 模式不支持此功能，但 jQuery 和 Dojo 都用到了它。
+高级闭包比如 self-memoizing 函数，partially applied 函数，以及最可爱的 (function(){})() 调用。
+函数以及 HTML prototype，prototype chain，以及如何使用基本的javascript对象和函数（比如 Array）来简化代码。
+对象类型以及 instanceof 的使用
+正则表达式和表达式编译
+With 语句以及为什么不要使用它们
+最困难的部分，知道如果利用所有这些工具，并产生处干净，整洁，健壮，快速，可维护以及兼容不同浏览器的代码。
