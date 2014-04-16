@@ -37,6 +37,10 @@ http://benalman.com/news/2010/11/immediately-invoked-function-expression/
 
 
 
+http://tutorialzine.com/2014/04/10-mistakes-javascript-beginners-make/
+
+
+
 
 
 
