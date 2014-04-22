@@ -39,6 +39,14 @@ http://benalman.com/news/2010/11/immediately-invoked-function-expression/
 
 http://tutorialzine.com/2014/04/10-mistakes-javascript-beginners-make/
 
+http://developer.telerik.com/featured/seven-javascript-quirks-i-wish-id-known-about/?utm_source=javascriptweekly&utm_medium=email
+Seven JavaScript Quirks I Wish I¡¯d Known About
+
+
+http://davidwalsh.name/write-javascript-promises?utm_source=javascriptweekly&utm_medium=email
+Write Better JavaScript with Promises
+
+
 
 
 
