@@ -47,6 +47,19 @@ http://davidwalsh.name/write-javascript-promises?utm_source=javascriptweekly&utm
 Write Better JavaScript with Promises
 
 
+secrets of the browser developer tools
+http://devtoolsecrets.com/
+
+
+º¯Êý±Õ°ü
+http://skilldrick.co.uk/2011/04/closures-explained-with-javascript/
+
+web components
+http://css-tricks.com/modular-future-web-components/
+
+
+
+
 
 
 
