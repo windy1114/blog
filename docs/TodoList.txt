@@ -60,6 +60,12 @@ http://css-tricks.com/modular-future-web-components/
 
 
 
+http://zh.blog.goddyzhao.me/post/11141710441/variable-object
+http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/
+
+
+
+
 
 
 
