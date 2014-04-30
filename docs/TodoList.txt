@@ -38,6 +38,8 @@ http://benalman.com/news/2010/11/immediately-invoked-function-expression/
 
 
 http://tutorialzine.com/2014/04/10-mistakes-javascript-beginners-make/
+http://cjihrig.com/blog/the-dangers-of-javascripts-automatic-semicolon-insertion/
+The Dangers of JavaScript¡¯s Automatic Semicolon Insertion
 
 http://developer.telerik.com/featured/seven-javascript-quirks-i-wish-id-known-about/?utm_source=javascriptweekly&utm_medium=email
 Seven JavaScript Quirks I Wish I¡¯d Known About
@@ -62,6 +64,10 @@ http://css-tricks.com/modular-future-web-components/
 
 http://zh.blog.goddyzhao.me/post/11141710441/variable-object
 http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/
+
+
+jslint errors
+http://jslinterrors.com/
 
 
 
