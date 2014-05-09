@@ -70,6 +70,9 @@ jslint errors
 http://jslinterrors.com/
 
 
+A Complete Guide to the Table Element
+http://css-tricks.com/complete-guide-table-element/
+
 
 
 
