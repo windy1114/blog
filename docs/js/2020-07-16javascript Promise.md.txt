@@ -1,0 +1,54 @@
+### Promise
+https://github.com/codediodeio/async-await-pro-tips/blob/master/4-concurrency.ts
+
+1.什么是Promise
+2.Promise的优点
+
+Promise是一个对象，它代表了一个异步操作的最终完成或者失败。 它的本质是一个函数返回的对象，可以在它上面绑定回调函数，这样就不需要在一开始把回调函数作为参数传入这个函数了。
+
+Promise 的有点链式调用
+
+使用Promise时的约定
+1.在本轮事件循环运行完成之前，回调函数是不会被调用的。
+2.即使异步操作已经完成（成功或者失败）在这之后通过then()添加的回调函数也会被调用
+3.通过多次调用then() 可以添加多个回调函数，它们会按照插入顺序执行
+
+链式调用解决的问题
+连续执行两个或者以上的异步操作，在上一个操作执行成功之后，并将上一个操作的返回结果作为参数去开始下一个操作。可以通过创建一个Promise链来实现
+then 函数会返回一个和原来不同的新的Promise
+
+const promise1 = doSomething()
+const promise2 = promise1.then(successCallback, failtureCallback)
+或者
+const promise2 = doSomething().then(successCallback, failtureCallback)
+
+promise2 不仅表示 doSomething()的完成，也代表了传入的successCallback, 或者 failtureCallback的完成。 这两个函数也会返回新的Promise对象， 从而形成一个异步操作。 这样在promise2上新增的回调函数会排在这个promise对象的后面
+
+每个promise对象都代表了链中另一个异步过程的完成
+
+在过去，要想做多重的异步操作，会导致经典的回调地狱，现在，我们可以把回调绑定到返回的 Promise 上，形成一个 Promise 链：
+```
+doSomething().then(function(result) {
+  return doSomethingElse(result);
+})
+.then(function(newResult) {
+  return doThirdThing(newResult);
+})
+.then(function(finalResult) {
+  console.log('Got the final result: ' + finalResult);
+})
+.catch(failureCallback);
+```
+
+then里的参数是可选的，catch(failureCallback) 是 then(null, failureCallback) 的缩略形式。如下所示，我们也可以用箭头函数来表示
+
+
+```
+doSomething()
+.then(result => doSomethingElse(result))
+.then(newResult => doThirdThing(newResult))
+.then(finalResult => {
+  console.log(`Got the final result: ${finalResult}`);
+})
+.catch(failureCallback);
+```
