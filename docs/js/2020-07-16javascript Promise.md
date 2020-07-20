@@ -4,7 +4,45 @@ https://github.com/codediodeio/async-await-pro-tips/blob/master/4-concurrency.ts
 1.什么是Promise
 2.Promise的优点 Promise 解决了回调地狱的基本缺陷
 
-Promise是一个对象，它代表了一个异步操作的最终完成或者失败,以及其结果值。 它的本质是一个函数返回的对象，可以在它上面绑定回调函数，这样就不需要在一开始把回调函数作为参数传入这个函数了。
+Promise是一个代理对象（代理一个值），它代表了一个异步操作的最终完成或者失败,以及其结果值。 
+这个异步方法可以像同步方法那样返回值，单并不是立即返回最终执行结果，而是一个能代表未来出现的结果的promise对象
+
+它的本质是一个函数返回的对象，可以在它上面绑定回调函数，这样就不需要在一开始把回调函数作为参数传入这个函数了。
+
+## promise的状态
+1. pending 始状态，既不是成功，也不是失败状态
+2. fulfilled 意味着操作成功完成。
+3. rejected 意味着操作失败。
+
+## 参数
+参数executor是一个带有resolve,和reject的函数。 Promise构造函数 执行时立即调用executor函数， resolve和reject两个函数
+作为参数传递给executor（executor函数在Promise构造函数返回所建promise实例对象前调用）。
+resolve和reject两个函数被调用时分别将promise的状态改为fulfilled 或 rejected。
+eecutor内部通常会执行一些异步操作，一旦异步操作执行完毕（可能成功可能失败） 要么调用resolve函数将promise状态改为fullfiled 要么将promise的状态改为rejected的。
+如果在executor函数中抛出一个错误，那么改promise状态为rejected. executor函数返回值被忽略。
+
+
+构造函数主要用于包装还未支持promises的函数
+```
+new Promise( function(resolve, reject) {...} /* executor */  );
+```
+```
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('foo');
+  }, 300);
+});
+
+promise1.then((value) => {
+  console.log(value);
+  // expected output: "foo"
+});
+
+console.log(promise1);
+
+> [object Promise]
+> "foo"
+```
 
 Promise 的有点链式调用
 
@@ -139,3 +177,61 @@ window.addEventListener("unhandledrejection", event => {
 调用 event 的 preventDefault() 方法是为了告诉 JavaScript 引擎当 promise 被拒绝时不要执行默认操作，默认操作一般会包含把错误打印到控制台。
 
 理想情况下，在忽略这些事件之前，我们应该检查所有被拒绝的 Promise，来确认这不是代码中的 bug。
+
+
+Promise.resolve和Promise.reject是手动创建一个已经resolve或者reject的Promise快捷方法。
+
+Promise.all 和Promise.race 是并行运行异步操作的两个组合式工具
+
+我们可以发起并行操作，然后等多个操作全部结束后进行下一步的操作。
+
+```
+Promise.all([function1, function2, function3])
+.then(([result1, result2, result3])=>{/* use result1, result2, result3*/})
+
+```
+通常我们递归调用一个由异步函数组成的数组时，相当于执行了一个Promise链
+```
+Promise.resolve().then(function1).then(function2).then(function3)
+
+```
+在 ECMAScript 2017 标准中, 时序组合可以通过使用 async/await 而变得更简单：
+
+```
+let result
+for(const f of [function1, function2, function3]) {
+	result = await f(result)
+}
+/* use last reslut (i.e. result3)*/
+
+```
+
+## 时序
+
+即便一个已经变成resolve状态的Promise，传递给 then() 的函数也总是会被异步调用的。、
+```
+Promise.resolve().then(()=> console.log(2));
+console.log(1) //1,2
+
+```
+传递到then()中的函数被置入了一个微任务队列，而不是立即执行，这意味着它时在js事件队列的所有运行时结束了，事件队列被清空之后才开始执行的。
+
+## 常见错误
+1.忘记终止返回一个Promise （经验法则是总是返回或者终止Promise链，并且一旦你得到一个新的Promise返回它。）
+2.不必要的嵌套
+3.忘记用catch终止链 这货导致在大多数浏览器中不能终止Promise链里的rejection
+
+
+```
+doSomething()
+.then(function(result) {
+  return doSomethingElse(result);
+})
+.then(newResult => doThirdThing(newResult))
+.then(() => doFourthThing())
+.catch(error => console.log(error));
+
+```
+注意：() => x 是 () => { return x; } 的简写。
+
+上述代码的写法就是具有适当错误处理的简单明确的链式写法。
