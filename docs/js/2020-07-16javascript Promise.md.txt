@@ -2,9 +2,9 @@
 https://github.com/codediodeio/async-await-pro-tips/blob/master/4-concurrency.ts
 
 1.什么是Promise
-2.Promise的优点
+2.Promise的优点 Promise 解决了回调地狱的基本缺陷
 
-Promise是一个对象，它代表了一个异步操作的最终完成或者失败。 它的本质是一个函数返回的对象，可以在它上面绑定回调函数，这样就不需要在一开始把回调函数作为参数传入这个函数了。
+Promise是一个对象，它代表了一个异步操作的最终完成或者失败,以及其结果值。 它的本质是一个函数返回的对象，可以在它上面绑定回调函数，这样就不需要在一开始把回调函数作为参数传入这个函数了。
 
 Promise 的有点链式调用
 
@@ -52,3 +52,90 @@ doSomething()
 })
 .catch(failureCallback);
 ```
+一定要有返回值，否则，callback将无法获取上一个Promise的结果。
+(如果使用箭头函数，() => x 比 () => { return x; } 更简洁一些，但后一种保留 return 的写法才支持使用多个语句。）。
+
+catch的后续链式操作
+有可能在一个回调失败之后继续使用链式操作，即使用一个catch，这对于在链式操作中抛出一个失败之后，再次进行新的操作很有用。
+
+```
+new Promise((resolve, reject) => {
+    console.log('初始化');
+
+    resolve();
+})
+.then(() => {
+    throw new Error('有哪里不对了');
+        
+    console.log('执行「这个」”');
+})
+.catch(() => {
+    console.log('执行「那个」');
+})
+.then(() => {
+    console.log('执行「这个」，无论前面发生了什么');
+});
+```
+
+输出结果如下：
+初始化
+执行“那个”
+执行“这个”, 无论前面发生了什么
+
+因为抛出了错误 <u>有哪里不对了</u>，所以前一个 <u>执行【这个】没有被输出</u>
+
+通常，一遇到异常抛出，浏览器就会顺着promise链寻找下一个onRejected 失败回调函数或者由.catch()指定的回调函数。
+和下边这个同步代码的执行过程很相似。
+
+```
+try {
+  let result = syncDoSomething();
+  let newResult = syncDoSomethingElse(result);
+  let finalResult = syncDoThirdThing(newResult);
+  console.log(`Got the final result: ${finalResult}`);
+} catch(error) {
+  failureCallback(error);
+}
+
+```
+
+在 ECMAScript 2017 标准的 async/await 语法糖中，这种与同步形式代码的对称性得到了极致的体现：
+```
+async function foo() {
+  try {
+    const result = await doSomething();
+    const newResult = await doSomethingElse(result);
+    const finalResult = await doThirdThing(newResult);
+    console.log(`Got the final result: ${finalResult}`);
+  } catch(error) {
+    failureCallback(error);
+  }
+}
+```
+
+
+Promise的拒绝事件
+当promise被拒绝时，会有rejectionhandled和unrejectedrejection两个事件中的一个被派发到全局作用域（一般时window,如果时web work中使用，就是worker 或者是其他worker-based接口）
+
+rejectionhandled
+当Promise被拒绝，并且再reject函数处理改rejection之后会派发次事件
+unhandlerejection
+当promise被拒绝，但是没有提供reject函数来处理该rejection时，会派发此事件。
+
+以上两种情况种，PromiseRejectionEvent事件都有两个属性，一个时promise属性，该属性指向被驳回的Promise，另一个是reason属性，该属性用来说明Promise被驳回的原因。
+
+我们可以通过以上事件为Promise失败时提供补偿处理，也有利于调试Promise相关的问题。在每一个上下文中该处理都是全局的。因此不管源码如何，所有的错误都会在同一个handler中被捕捉处理。
+
+一个特别有用的例子：当你使用 Node.js 时，有些依赖模块可能会有未被处理的 rejected promises，这些都会在运行时打印到控制台。你可以在自己的代码中捕捉这些信息，然后添加与 unhandledrejection 相应的 handler 来做分析和处理，或只是为了让你的输出更整洁。举例如下：
+```
+window.addEventListener("unhandledrejection", event => {
+  /* 你可以在这里添加一些代码，以便检查
+     event.promise 中的 promise 和
+     event.reason 中的 rejection 原因 */
+
+  event.preventDefault();
+}, false);
+```
+调用 event 的 preventDefault() 方法是为了告诉 JavaScript 引擎当 promise 被拒绝时不要执行默认操作，默认操作一般会包含把错误打印到控制台。
+
+理想情况下，在忽略这些事件之前，我们应该检查所有被拒绝的 Promise，来确认这不是代码中的 bug。
