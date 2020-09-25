@@ -52,3 +52,4 @@ const RandomImage = props => {
 
 ReactDOM.render(<RandomImage />, document.getElementById('root'))
 ```
+
