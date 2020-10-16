@@ -1,0 +1,43 @@
+vue-router实现
+1.页面不刷新两种方式一个是hash Change 一个是 history api
+2.当url发生变化的时候，页面更新 。 defineReactive 数据响应式 实现页面更新
+
+vuex的实现
+实现state的响应式
+
+
+vue实际思想
+MVVM框架 三要素 数据响应式 模板引擎
+数据绑定 数据监听
+
+数据响应式原理
+数据变化能够响应在视图中，就是数据响应式。 vue2中利用defindeProperty
+
+
+1.创建Observer （劫持监听所有属性，对数据作响应式处理） 通知变化Dep(通知更新) 在Observer的get里面创建Dep的实例用来通知更新
+2.compiler 模板编译（解析指令） 解析{{}}  订阅数据变化， watcher 一对一负责元素
+（分辨数据是对象还是数组作不同处理）
+
+compiler发现特殊语法({{}}) 需要初始化视图 动态替换data, 怎么更新后面的data属性呢。 需要订阅数据变化，创建watcher
+
+kvue
+1.对data选项作响应式处理
+2.编译模板
+
+Observer
+
+compiler 更新函数的解析
+
+watcher 执行更新函数 具体负责一个界面中的数据的更新（更新vdom ）
+
+Dep 管理watcher. 批量更新
+
+
+每发现一个动态的就创建一个watch 
+任何一个key对应一个dep
+dep 和watch 是一对多的关系
+
+每次get的时候就是创建watch和dep的关系
+set的时候就去做更新
+
+//监听器，负责依赖的更新
