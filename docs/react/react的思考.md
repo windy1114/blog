@@ -49,46 +49,11 @@ Provider 避免每个页面引入store
 connect 不引入store的情况下获取数据和dispatch
 reducer修改规则定义state的初始化
 
+Fiber  单链表 child , sibling, return 
+js对象 标记节点类型和任务
+lanes 
+flags 标记副作用
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-整理的面试相关问题
-深入事件循环机制
-https://mp.weixin.qq.com/s/m3a6vjp8-c9a2EYj0cDMmg
-
-https://github.com/lf2021/Front-End-Interview/blob/master/09.%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98.md#%E4%B8%80%E9%9D%A2-2020827
-https://github.com/lf2021/Front-End-Interview/blob/master/09.%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98-yjj.md
-https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/JavaScript/JavaScript.md#35-javascript-%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F vue的生命周期
-https://github.com/lf2021/Front-End-Interview/blob/master/08.%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81%E9%A2%98/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81%E9%A2%98.md
-
-https://github.com/jirengu/frontend-interview/issues?page=2&q=is%3Aissue+is%3Aopen
-
-react面试题相关
-https://mp.weixin.qq.com/s?__biz=Mzg2NDAzMjE5NQ==&mid=2247484667&idx=1&sn=dcaea6836c604100f9811c8c7f98a147&scene=21#wechat_redirect
-
-深入系列
-https://github.com/mqyqingfeng/Blog
-https://github.com/mqyqingfeng/Blog/issues/2
-https://juejin.im/user/712139233840407
-react源码学习
-https://github.com/KieSun/learn-react-essence/blob/master/%E7%83%AD%E8%BA%AB%E7%AF%87.md
-promise原理的不错的文章
-https://github.com/KieSun/learn-react-essence/blob/master/%E7%83%AD%E8%BA%AB%E7%AF%87.md
-基础题目
-https://juejin.im/post/6844903470466629640
-https://zhuanlan.zhihu.com/p/25407758
 
 react 源码
 build your own react

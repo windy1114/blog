@@ -38,7 +38,7 @@ vue构造函数
   initState //数据初始化 props,methods,data, computed, watch state.js(解释了优先级 props?methods?data?computed?watch) 
   initProvide //数据初始化  data/props
   callHook //created
-
+  
 ####  什么时候会调用$mount?
 当设置了el选项时，自动调用$mount
 #### new Vue都做了哪些事

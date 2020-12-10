@@ -41,3 +41,131 @@ dep 和watch 是一对多的关系
 set的时候就去做更新
 
 //监听器，负责依赖的更新
+watcher
+
+//未来被Dep调用
+update
+
+
+
+vue3初始化
+createApp => mount => render => patch(是否初始化)=> processComponent()=>mountComponent()
+vue.global.js 
+
+/runtime-dom/src/index.ts 入口
+vue基础api /vue/dist/vue.global.js
+
+ensureRenderer 渲染器
+apiCreateApp.ts 废弃了filter
+
+
+实例的方法
+use方法 treeshaking 打包 
+
+ctx $
+
+setupComponent
+init 
+
+
+proxy的方法是响应式
+
+
+setup(props, {emit, slots, attrs}) 比beforeMount早
+
+finishComponentSetup
+
+
+
+执行完setup 处理options api
+
+
+composition
+1.没有this了
+
+
+Vue3虚拟dom和patch算法
+
+新的vnode 1.没有text属性， 2. patchFlag 二进制，当前动态内容的类型。 3.dynamicChildren ， dynamicProps, 4. shapeFlag 标记组件的形态，比有状态，无状态。 5. type 节点类型。 Symbol Fragment
+
+Vnode何时创建
+mount的时候createVNode 根节点
+
+setupRenderEffect 收集依赖 创建副作用
+
+缓存事件处理程序
+
+patchFlag  patch算法 影响更新过程 diff判断patchFlag
+shapeFlag 节点的基本结构 影响初始化过程
+v-for的children不入dynamicChildren
+
+
+$attrs $listeners 爷孙传参
+
+$attrs 1. 未声明props 2。利用 展开运算 v-bind="$attrs" v-on="$listeners"
+
+provide inject 隔代传参 inject进来的数据不是响应式的。
+
+inheritAttrs:false
+
+
+作用域插槽   父组件拿子组件的数据
+分发内容
+
+组件实例化
+1.extend
+2.new Vue({
+	render: h=> return h(Component, {props})
+})
+vm.$mount() 传递宿主，手动追加避免覆盖原有内容
+document.body.appendChild(vm.$el)
+vm.$children vm.$destroy
+vue inspect 
+
+webpack 的 require.context() 指定一个目录为上下文。 
+req.keys 获取当前目录下的文件名 。
+
+
+.env.development 对应package.json的serve  如果不叫devement那么需要修改--mode xx
+
+process.evn.foo
+
+加上 VUE_APP_ 可以在客户端使用
+
+
+react
+
+context
+step 1.创建context React.createContext, 
+step 2. Provider
+step 3. context value  Consumer
+	1) contextType 类组件, 只能订阅单一的 contextType 不能改
+	2) useContext 函数组件和自定义hook中
+	3) Consumer 函数组件类组件都可以用，可以订阅多个context来源
+
+context消耗的性能很大。因为存在useState里面，更新的成本高。
+
+context 跨层级传递
+redux 数据共享，组件之间没有明显的层级关系，可能是并列的。
+
+如果被传递的数据是一个对象，那么把他放在state里面。原因是，diff的时候，比较属性的时候 对象永远不相等,会发生更新。
+
+hoc
+是一个函数，参数是组件，返回值是新组件
+
+不要在render方法中使用HOC， 因为render方法会多次调用
+
+ref的使用
+step1  createRef
+step2. ref.current.
+
+
+reducer 接收上一次的prevState， 和action， 返回新的state
+
+redux中的reducer 为什么是一个纯函数 reducer定义修改规则
+
+redux 需要取消订阅
+
+store 
+
+
