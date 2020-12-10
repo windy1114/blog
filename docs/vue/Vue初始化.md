@@ -42,10 +42,6 @@ vue构造函数
 ####  什么时候会调用$mount?
 当设置了el选项时，自动调用$mount
 #### new Vue都做了哪些事
-派发生命周期钩子beforeCreated, created, 初始化实例， 实例相关的各种属性如$parent $root $slot props,data,watch, computed数据响应式处理
-$mount():生成真实dom (mountCoponent lifecycle.js) 调用以下两个函数
-render: 获取vdom _render()
-patch 初始化/更新 vdom=> dom _update()
-callHook(vm, "beforeMount")
-new Watcher 服务$root? 执行updateComponent()
-updateComponent()
+- 派发生命周期钩子beforeCreated, created, 
+- 初始化实例， 实例相关的各种属性如$parent $root $slot props,data,watch, computed数据响应式处理
+
