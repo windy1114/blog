@@ -1,5 +1,5 @@
 ## Vue初始化
-![avatar](https://p4.ssl.qhimg.com/t01ba2c27db54e48156.png)
+![avatar](https://p2.ssl.qhimg.com/t01cebfb4c74c7fe96d.png)
 ### 1 入口文件
 src\platforms\web\entry-runtime-with-compiler.js
 扩展$mount，处理可能存在的templte或el选项 做了以下操作
