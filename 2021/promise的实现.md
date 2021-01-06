@@ -8,7 +8,7 @@ Promise通过延迟回调函数绑定，异常穿透，返回值传透解决了�
 ```
 	new Promise(function(resolve, reject) => {
 		//待处理的异步操作
-		//异步任务顺利完成，调用resolve;异步任务失败调用reject
+		//异步任务顺利完成且返回值，调用resolve;异步任务失败调用且返回值reject
 	})
 ```
 想让一个函数拥有promise功能，只需要让它返回一个promise即可。
@@ -44,37 +44,44 @@ Promise通过延迟回调函数绑定，异常穿透，返回值传透解决了�
 ```
 	function Promise(excutor) {
 		const _this = this
-		_this.status = "pedding"
+		_this. status = "pedding"
 		_this.data = null
 		_this.onFullfilled = null
 		_this.onRejected = null
 
 		const resolve = value => {
-			
+			//1.修改promise的状态为fullfilled
+			//2.设置promise的结果值
 			if(_this.status === "pedding") {
 				return;
 			}
 
 			_this.status = "fullfilled"
-
+			this.data = value
 			return value;
 
 		}
 
 		const reject = reason => {
+			//1.修改promise的状态为rejected
+			//2.设置promise的结果值
 			if(_this.status === "pedding") {
 				return;
 			}
 
 			_this.status = "rejected"
+			this.data = reason
 			return reason;
 		}
 
+		//这里用try catch是因为throw可以改变promise的状态。
 		try {
+			//同步调用执行器函数
 			excutor(resolve, reject)
 		} 
 		catch (error) {
-			throw(error)
+			//修改promise对象的状态为失败
+			reject(error)
 		}
 	}
 	Promise.prototype.then = function (onResolved, onRejected) {
