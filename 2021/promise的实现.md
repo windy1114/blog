@@ -45,14 +45,16 @@ Promise通过延迟回调函数绑定，异常穿透，返回值传透解决了�
 	function Promise(excutor) {
 		const _this = this
 		_this. status = "pedding"
-		_this.data = null
+		_this.promiseResult = null
 		_this.onFullfilled = null
 		_this.onRejected = null
 
 		const resolve = value => {
 			//1.修改promise的状态为fullfilled
 			//2.设置promise的结果值
-			if(_this.status === "pedding") {
+			
+			//确保promise的状态只能改变一次
+			if(_this.status !== "pedding") {
 				return;
 			}
 
@@ -65,7 +67,9 @@ Promise通过延迟回调函数绑定，异常穿透，返回值传透解决了�
 		const reject = reason => {
 			//1.修改promise的状态为rejected
 			//2.设置promise的结果值
-			if(_this.status === "pedding") {
+
+			//确保promise的状态只能改变一次
+			if(_this.status !== "pedding") {
 				return;
 			}
 
@@ -85,7 +89,8 @@ Promise通过延迟回调函数绑定，异常穿透，返回值传透解决了�
 		}
 	}
 	Promise.prototype.then = function (onResolved, onRejected) {
-
+		//根据promise的状态，执行onResolved或者onRejected,并且需要将promiseResult作为实参传递。
+		//promise pedding状态需要保存回调函数
 	}
 ```
 
