@@ -36,6 +36,15 @@ https://lucybain.com/blog/2016/react-state-vs-pros/
 ### react render
 ####react render做了什么事
 react的render()方法，会创建一颗由react元素组成的树，在下一次state或props更新时，相同的render方法会返回一棵不同的树。react需要基于这两颗树之间的差别来判断如何有效率的更新UI以保证当前UI与最新的树保持同步
+渲染阶段的生命周期包括以下 class 组件方法：
+- constructor
+- componentWillMount (or UNSAFE_componentWillMount)
+- componentWillReceiveProps (or UNSAFE_componentWillReceiveProps)
+- componentWillUpdate (or UNSAFE_componentWillUpdate)
+- getDerivedStateFromProps
+- shouldComponentUpdate
+- render
+- setState 更新函数（第一个参数）
 #### react 启发式算法的两个假设：
 1. 两个不同类型的元素会产生不同的树
 2. 开发者可以通过key prop来暗示哪些子元素在不同的渲染下能保持稳定
@@ -50,3 +59,14 @@ react的render()方法，会创建一颗由react元素组成的树，在下一�
 当一个组件更新时，组件实例保持不变，将更新该组件实例的 props 以跟最新的元素保持一致，并且调用该实例的 UNSAFE_componentWillReceiveProps()、UNSAFE_componentWillUpdate() 以及 componentDidUpdate() 方法。下一步，调用 render() 方法，diff 算法将在之前的结果以及新的结果中进行递归。
 - 对比子元素
 当递归 DOM 节点的子元素时，React 会同时遍历两个子元素的列表；当产生差异时，生成一个 mutation。
+
+
+### 受控组件vs非受控组件
+- 推荐使用受控组件来处理表单数据，受控组件中，表单数据就由react来管理的。非受控组件的表单数据由DOM节点来处理
+- 非受控组件中表单设置默认值用defaultValue而不是value。组件挂载之后更新defaultValue的值，不会造成DOM上值的任何更新。
+- <input type="file" /> 始终是一个非受控组件，因为它的值只能由用户设置，而不能通过代码控制
+- 受控组件中，输入的值始终由React的state来驱动。
+
+### 状态提升
+多个组件需要反映相同的变化数据，这时我们建议将共享状态提升到最近的共同父组件中去
+
