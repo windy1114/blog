@@ -23,6 +23,8 @@ https://lucybain.com/blog/2016/react-state-vs-pros/
 - props are a Component's configuration, props是可选的
 - 组件不能修改它的props。but it is responsible for putting together the props of its child Components.
 - state可以说是组件私有的
+- 不要把props赋值给state, 因为props更新之后，state不会被更新。 任何数据，都要保证只有一个数据来源，而且避免直接复制它。
+
 |	props |	state | | |
 | ---- | ----|----| ----|
 | Can get initial value from parent Component? |	Yes |	Yes|
@@ -43,8 +45,10 @@ react的render()方法，会创建一颗由react元素组成的树，在下一�
 - componentWillUpdate (or UNSAFE_componentWillUpdate)
 - getDerivedStateFromProps
 - shouldComponentUpdate
+shouldComponentUpdate()返回false那么不会执行render()
 - render
 - setState 更新函数（第一个参数）
+
 #### react 启发式算法的两个假设：
 1. 两个不同类型的元素会产生不同的树
 2. 开发者可以通过key prop来暗示哪些子元素在不同的渲染下能保持稳定
