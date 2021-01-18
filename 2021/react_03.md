@@ -42,4 +42,4 @@ componentWillMount,componentWillReceiveProps,componentWillUpdate。
 废弃的原因：因为Fiber机制下这三个生命周期都处于render阶段。而render阶段是允许暂停、终止和重启的，所以会导致它们可能被重复执行，如果开发者使用不当，那么会有bug。如 componentWillMount 里发起异步请求。在 componentWillxxx 被打断 + 重启多次后，就会发出多个异步请求。
 
 
-
+https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html 何时不需要使用getDerivedStateFromProps
