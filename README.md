@@ -9,7 +9,9 @@
 
 - [react组件通信](./2021/react_01.md)
 - [react-create-app配置eslint]
-- [react生命周期]
+- [react生命周期](./2021/react_03.md)
+- [react性能优化](./2021/react_02.md)
+- [react fiber架构]
 
 ### 其他
 
