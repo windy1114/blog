@@ -2,8 +2,14 @@
 ### Javascript/ECMAScript
 
 - [Pomise的实现原理](./2021/promise.md)
+
 - [compose](./2021/compose.md)
+
 - [curry柯里化](./2021/curring.md)
+
+- [this到底指向哪里](./2021/this.md)
+
+  
 
 ### React
 
