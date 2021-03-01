@@ -8,7 +8,7 @@
 - [curry柯里化](./2021/curring.md)
 
 - [this到底指向哪里](./2021/this.md)
-
+- [Set,WeakSet,Map,WeakMap](./2021/set_map.md)
   
 
 ### React
