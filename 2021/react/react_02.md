@@ -6,7 +6,7 @@
 React.PureComponent用当前和之前props,state的浅比较覆写了shouldComponentUpdate的实现
 
 ### React.memo
-
+使用 PureComponent 或是 shouldComponentUpdate 来解决 class 组件在 props 不变时会重新渲染的问题，使用React.memo包裹函数组件使其获得同样的能力
 
 ### shouldComponentUpdate
 shouldComponentUpdate会在渲染前被触发。默认返回true
@@ -15,6 +15,20 @@ shouldComponentUpdate(nextProps, nextState) {
 	return true;
 }
 ```
+### React.lazy 
+依赖Suspense进行代码分割。 通过React.lazy() 包装动态加载的组件的方式使用Suspense来进行 代码分割了。
+```
+import React, {lazy, Suspense} from 'react';
+const OtherComponent = lazy(() => import('./OtherComponent'));
+
+function MyComponent() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OtherComponent />
+    </Suspense>
+  );
+}
+``` 
 
 ### props vs state
 https://lucybain.com/blog/2016/react-state-vs-pros/

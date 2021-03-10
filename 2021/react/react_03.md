@@ -27,6 +27,7 @@ shouldComponentUpdate()->render()->getSnapshotBeforeUpdate()->componentDidUpdate
 - getDerivedStateFromProps 需要返回一个对象格式(对象或者null)，如果不，react会警告。因为react需要找个值来更新组件的state。它对 state 的更新动作并非“覆盖”式的更新，而是针对某个属性的定向更新。如果state不存在这个属性，那么state会增加这个属性，如果返回null或者{} 那么state还是原来的state
 - getDerivedStateFromProps 触发的原因1. setState, 2. forceUpdate
 - getDerivedStateFromProps 不能和componentWillReceiveProps划等号
+- getDerivedStateFromProps 生命周期方法在组件实例化之后以及重新渲染之前调用。
 - 只用 getDerivedStateFromProps 来完成 props 到 state 的映射.确保生命周期函数的行为更加可控可预测
 - getSnapshotBeforeUpdate(prevProps, prevState) 的返回值会作为第三个参数给到componentDidUpdate。执行时机是render()之后，真实dom之前。
 - getSnapshotBeforeUpdate 可以同时获取新旧props和state，还有更新前的真实dom
@@ -41,5 +42,8 @@ shouldComponentUpdate()->render()->getSnapshotBeforeUpdate()->componentDidUpdate
 componentWillMount,componentWillReceiveProps,componentWillUpdate。
 废弃的原因：因为Fiber机制下这三个生命周期都处于render阶段。而render阶段是允许暂停、终止和重启的，所以会导致它们可能被重复执行，如果开发者使用不当，那么会有bug。如 componentWillMount 里发起异步请求。在 componentWillxxx 被打断 + 重启多次后，就会发出多个异步请求。
 
+
+#### componentWillMount的坑
+在componentWillMount里添加事件监听器，可能会导致服务渲染（永远不会调用componentWillUnmount），和异步渲染(在渲染完成之前可能被中断，导致不调用componentWillUnmount)的内存泄露。添加监听器/订阅的推荐方法是使用 componentDidMount 生命周期
 
 https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html 何时不需要使用getDerivedStateFromProps
