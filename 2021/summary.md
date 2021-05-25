@@ -1,0 +1,113 @@
+HTML部分
+script标签为什么要放在body下面
+HTML5语义化标签
+自定义属性data-* (Vue scope实现原理)
+可替换元素 
+行内元素，块元素
+脚本的异步加载(async defer)
+a 标签的noopener
+
+///////////////////////////////////////////////////////////
+
+CSS盒模型
+box-sizing
+BFC
+GPU渲染
+flex布局，grid布局
+
+/////////////////////////////////////////////////////////////
+
+JavaScript基础
+ECMA + DOM(Nodes,Ranges,Events) + BOM
+ES6提出的四大组件是类，模块，Promise，生成器/迭代器
+1. JavaScript是如何执行的
+2. 作用域，作用域链，词法作用域，函数作用域，块作用域（var, let , const, try/catch, with），块级作用域的替代方案，ES5里面有没有块级作用域,babel是如何实现let, const，变量提升（普通变量提升和函数声明的提升有何区别 undefined和指向函数对象），作用域和闭包，闭包形成的本质，闭包有什么好处，垃圾回收，模块化 
+3. 变量，数据类型，数据类型转换,Symbol, typeof , instanceof, Object.prototype.toString.call()， deepClone,  V8是如何查找变量的，V8是怎么处理对象的
+4. 函数，箭头函数，this词法, this绑定， call, bind,apply,  
+4.0 函数声明和函数表达的区别（在函数声明之前执行函数vs在函数表达式之前执行函数会发生什么）
+
+## 立即调用的函数表达式， V8在编译阶段，并不会为该表达式创建函数对象，这样的一个好处就是不会污染环境，函数和函数内部的变量都不会被其他部分的代码访问到（变量隔离，代码隐藏）
+
+
+V8是怎么处理函数声明的
+```
+    // foo() //打印"aaaa"
+	// function foo () {
+	// 	console.log("aaaa") 
+	// }
+	foo() //Uncaught TypeError: foo is not a function
+	var foo = function () {
+		console.log("aaaa")
+	}
+
+```
+4.1.扩展 V8 内部是怎么实现函数可调用特性的
+5. 对象，类，构造函数，Object.definedProperty,  对象原型 Object.create(),原型链，继承，ES6 Class， new 做了哪些事，Object.create实现原理，V8如何实现对象属性的快速查找
+6. 数组 数组去重，数组扁平化, Set, Map， （关联的迭代方法 for...in, for...of, for, forEach, ）
+5. 模块化
+6. Promise
+7. 生成器、迭代器、协程
+8. 本地存储Session, Cookie, localStorage, sessionStorage
+9. 事件，事件委托，事件监听
+9. HTTP协议, HTTP缓存，
+10. 
+
+
+原型链：用来查找对象属性（property in an object）的，它是原型继承的一种实现方式。隐藏属性__proto__ （隐藏属性不是标准定义的，使用该属性会造成严重的性能问题）
+作用域：用来解析标识符，是词法作用域的一种实现方式
+作用域链是沿着函数的作用域一级一级来查找变量的，而原型链是沿着对象的原型一级一级来查找属性的
+
+如何设置对象的原型对象
+1. a.__proto__ = b（不推荐）
+2. 构造函数 new  
+```
+var dog = new DogFactory('Dog','Black')
+// new 的背后做了哪些事
+var dog = {}  
+dog.__proto__ = DogFactory.prototype
+DogFactory.call(dog,'Dog','Black') //使用dog 来调用DogFactory,这时DogFactory的this就指向了dog,然后在DogFactory中，利用this对dog执行属性填充，最终就创建了dog对象
+```
+3. 
+
+变量提升
+var x = 5
+分两个阶段执行
+首先编译阶段执行 var x ，然后在执行阶段 执行 x = 5
+
+V8相关问题
+1. V8是怎么执行JS的
+2. V8是怎么处理函数声明的
+V8在变量提升阶段，如果遇到函数声明，那么V8同样会对该函数声明执行变量提升操作， 函数也是一个对象，所以在编译阶段，V8就会将整个函数对象提升到作用域中，并不是给该函数声明赋一个undefined，
+2.0 变量提升和函数声明提升
+V8在编译阶段，都会对其执行变量提升的操作，将它们提升到作用域中，在执行阶段，如果使用了某个变量，就可以直接去作用域中查找
+2.1 V8是怎么处理函数表达式的
+```
+foo()
+var foo = function (){
+    console.log('foo')
+}
+```
+V8首先会查找声明语句，于是上面的代码被拆分为
+```
+var foo   
+foo = function () {
+    console.log('foo')
+}
+```
+V8在编译阶段，就会在作用域中创建该对象，并将该对象设置为undefined，第二行是函数表达式，在编译阶段，V8并不会处理函数表达式，所以也就不会将该函数表达式提升到作用域中了。
+那么在函数表达式之前调用函数foo, 而此时的foo指向的是undefined,所以就相当于调用了undefined, undefined只是一个原生的对象，并不是函数，所以当然会报错了。
+
+3. V8是怎样提升对象的属性访问速度的
+4. V8内部是怎么实现函数可调用特性的呢
+5. V8中是如何实现对象的继承
+6. V8中是如何查找变量的
+7. V8是怎么实现 1 + '2'的
+
+
+## 表达式是不会在编译阶段执行的。
+## 在V8解析JavaScript源码的过程中，如果遇到普通的变量声明，那么便会将它提升到作用域中，并给该变量赋值为undefined,如果遇到的是函数声明，那么V8会在内存中为声明生产函数对象，
+## 并将该对象提升到作用域中 
+
+
+## 原型继承机制, 在JavaScript中是通过new加上构造函数来体现的
+DogFactory 是一个函数，那么“DogFactory.prototype”和“DogFactory._proto_”这两个属性之间有关联吗？
